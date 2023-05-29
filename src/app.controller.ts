@@ -4,7 +4,7 @@ import { RequestTokenDto } from './dtos/requestToken.dto';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get()
   getHello(): string {
@@ -17,7 +17,7 @@ export class AppController {
   }
 
   @Get('contract-address')
-  getContractAddress(){
+  getContractAddress() {
     return this.appService.getContractAddress();
   }
 
@@ -26,7 +26,8 @@ export class AppController {
     return this.appService.getTotalSupply();
   }
 
-  @Get('balance/address')
+  
+  @Get('balance/:address')
   getBalance(@Param('address') address: string) {
     return this.appService.getBalance(address)
   }
@@ -40,6 +41,7 @@ export class AppController {
 
   @Post('request-tokens')
   requestTokens(@Body() body: RequestTokenDto) {
+    // if (!this.appService.checkSig(body.address, body.signature)) throw new ForbiddenException();
     return this.appService.requestTokens(body.address);
   }
 

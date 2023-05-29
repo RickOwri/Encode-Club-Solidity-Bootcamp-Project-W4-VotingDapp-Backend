@@ -1,6 +1,5 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractAddress": "0x35a24F28f846DB57F13B534799659824A81f31FF",
   "contractName": "MyToken",
   "sourceName": "contracts/MyToken.sol",
   "abi": [
