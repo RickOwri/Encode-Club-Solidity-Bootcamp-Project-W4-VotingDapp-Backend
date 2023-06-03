@@ -6,10 +6,14 @@ import { DelegateTokenDto, RequestTokenDto, TransferTokenDto, CastVoteDto } from
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
+  // test
+
   @Get()
   getHello(): string {
     return this.appService.getHello();
   }
+
+  // Get current contract informations
 
   @Get('last-block')
   getLastBlock() {
@@ -25,6 +29,8 @@ export class AppController {
   getTokenizedBallotAddress() {
     return this.appService.getTokenizedBallotAddress();
   }
+
+  // Get address and transactions informations
 
   @Get('total-supply')
   getTotalSupply() {
@@ -43,17 +49,17 @@ export class AppController {
 
   a: number = 0;
 
-  @Post('transfert-token')
-  transfertToken(@Body() body: TransferTokenDto) {
-    return this.appService.transfertToken(body.addressReceiver, body.transferedUnits);
-  }
-
-
+  // TokenContractUsage
+  
   @Get('get-token-number/:address')
   getTokenNumber(@Param('address') address: string) {
     return this.appService.getTokenNumber(address);
   }
-
+  
+  @Post('transfert-token')
+  transfertToken(@Body() body: TransferTokenDto) {
+    return this.appService.transfertToken(body.addressReceiver, body.transferedUnits);
+  }
   @Post('delegate-tokens')
   delegateTokens(@Body() body: DelegateTokenDto) {
     return this.appService.delegateTokens(body.addressReceiver);
@@ -64,15 +70,23 @@ export class AppController {
     return this.appService.requestTokens(body.address, body.mintValue);
   }
 
+  // TokenizedBallotContract Usage
+
   @Post('voting-right/:address')
   votingRight(@Param('address') address: string) {
     return this.appService.votingRight(address);
   }
 
-
   @Post('cast-vote')
   CastVote(@Body() body: CastVoteDto) {
-    return this.appService.CastVote(body.PROPOSAL, body.VOTED_AMOUNT);
+    return this.appService.CastVote(body.SIGNER, body.PROPOSAL, body.VOTED_AMOUNT, body.signature);
   }
+
+  // Oracle Usage  
+
+  // @Get('cast-vote')
+  // Proposal(@Body() body: CastVoteDto) {
+  //   return this.appService.CastVote(body.PROPOSAL, body.VOTED_AMOUNT);
+  // }
 
 }

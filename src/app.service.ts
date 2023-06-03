@@ -159,13 +159,13 @@ export class AppService {
   }
 
 
-  async CastVote(PROPOSAL: string, VOTED_AMOUNT: string) {
-    const pKey = this.configService.get<string>('PRIVATE_KEY_SANGOKU');
-    const wallet = new ethers.Wallet(pKey);
-    const signer = wallet.connect(this.provider);
+  async CastVote(SIGNER:ethers.Wallet, PROPOSAL: string, VOTED_AMOUNT: string) {
+    // const pKey = this.configService.get<string>('PRIVATE_KEY_SANGOKU');
+    // const wallet = new ethers.Wallet(pKey);
+    // const signer = wallet.connect(this.provider);
     // PROPOSAL string to ethers.utils.parseunit
     const VOTED_AMOUNT_PARSED = ethers.utils.parseUnits(VOTED_AMOUNT)
-    const castVote = await this.TokenizedBallotContract.connect(signer).vote(PROPOSAL, VOTED_AMOUNT_PARSED);
+    const castVote = await this.TokenizedBallotContract.connect(SIGNER).vote(PROPOSAL, VOTED_AMOUNT_PARSED);
     const castVoteReceiptTx = await castVote.wait();
     return castVoteReceiptTx
    }

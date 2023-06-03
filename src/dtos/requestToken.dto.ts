@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 
 
 export class RequestTokenDto {
@@ -27,17 +27,11 @@ export class TransferTokenDto {
 
 export class CastVoteDto {
     @ApiProperty()
+    readonly SIGNER:ethers.Wallet;
+    @ApiProperty()
     readonly PROPOSAL:string;
     @ApiProperty()
     readonly VOTED_AMOUNT:string;
+    @ApiProperty()
+    readonly signature:string;
 }
-
-// export class MintTokenDto {
-//     @ApiProperty()
-//     readonly TOKEN_NUMBER:string;
-// }
-
-
-
-
-
